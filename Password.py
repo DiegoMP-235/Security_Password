@@ -16,36 +16,56 @@ class Password:
             self.__CaracteresEsp = True  
         else:
             self.__CaracteresEsp = False
-      
-    """
             
-    def getCaracteresHabilitados(self): #esta podria ser una solucion muy estatica, pero por el momento es para salir del apuro        
-        totalCaracteres = 1 #en caso de que se mantenga en 1 solo generara en base a las minusculas
-        if(self.__CaracteresEsp == True):
-            totalCaracteres = totalCaracteres+1
-            
-        if(self.__Mayusculas == True):
-            totalCaracteres = totalCaracteres+1  
-        
-        if(self.__Numeros == True):
-            totalCaracteres = totalCaracteres+1 
-      """      
-    
-    def __getCaracteresEsp(self):
+    def setMayusculas(self,Mayusculas):
+        if(self.__Mayusculas != True):
+            self.__Mayusculas = True  
+        else:
+            self.__Mayusculas = False     
+ 
+    def setNumeros(self,Numeros):
+        if(self.__Numeros != True):
+            self.__Numeros = True  
+        else:
+            self.__Mayusculas = False  
+                          
+    def getCaracteresEsp(self):
         return self.__CaracteresEsp
     
-    def __getMayusculas(self):
+    def getMayusculas(self):
         return self.__Mayusculas
     
-    def __getNumeros(self):
+    def getNumeros(self):
         return self.__Numeros
+    
+    
+    def getConjuntos(self):
+        Caracteres = ["abcdefghijklmnopqrstuvwxyz"] 
+        if(self.getCaracteresEsp() == True):   
+            Caracteres.insert(len(Caracteres),"ÑñÁáÍí[]{/}")
+            
+        if(self.getMayusculas()  == True):
+            Caracteres.insert(len(Caracteres),"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    
+        if(self.getNumeros()  == True):
+            Caracteres.insert(len(Caracteres),"0123456789")
+            
+        return Caracteres    
+    
+    def setPassword(self,Password):
+        self.__password = Password
+        
+    def getPassword(self):
+        return self.__password
     
     def generaPassword(self):   
         Password = ""  
-        Caracteres = ["abcdefghijklmnopqrstuvwxyz","ÑñÁáÍí[]{/}","ABCDEFGHIJKLMNOPQRSTUVWXYZ","0123456789"]      
-        #Obtiene de que conjunto habilitado obtendra el caracter
+        Caracteres = self.getConjuntos()     
               
-        for i in range(1,self.__longitud):
+        for i in range(0,self.__longitud):
             Conjunto = random.randint(0,len(Caracteres)-1)
-            Password = Password + Caracteres[Conjunto][random.randint(0,len(Conjunto)-1)]
+            Password = Password + Caracteres[Conjunto][random.randint(0,len(Caracteres[Conjunto])-1)]
+        
+        self.setPassword(Password)    
             
+                                 
