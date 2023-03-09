@@ -58,7 +58,7 @@ class Password:
     def getPassword(self):
         return self.__password
     
-    def generaPassword(self):   
+    def crearPassword(self):   
         Password = ""  
         Caracteres = self.getConjuntos()     
               
