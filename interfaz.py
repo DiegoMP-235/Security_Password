@@ -37,24 +37,15 @@ EtiquetaLen.pack()
 EntradaLen = Entry(FrameControlsPass)
 EntradaLen.pack()
 #Caracteres especiales
-EtiquetaCE = Label(FrameControlsPass,text="Caracteres Especiales")
-EtiquetaCE.pack()
-
-CaracteresEspecialesBtn = Checkbutton(FrameControlsPass,variable=EncenCaracEsp)
+CaracteresEspecialesBtn = Checkbutton(FrameControlsPass,text="Caracteres especiales",variable=EncenCaracEsp)
 CaracteresEspecialesBtn.pack()
 
 #Mayusculas
-EtiquetaMA = Label(FrameControlsPass,text="Mayusculas")
-EtiquetaMA.pack()
-
-MayusculasBtn = Checkbutton(FrameControlsPass,variable=EncenMayusculas)
+MayusculasBtn = Checkbutton(FrameControlsPass,text="Mayusculas",variable=EncenMayusculas)
 MayusculasBtn.pack()
 
 #Numeros
-EtiquetaNum = Label(FrameControlsPass,text="Numeros")
-EtiquetaNum.pack()
-
-NumerosBtn = Checkbutton(FrameControlsPass,variable=EncNumeros)
+NumerosBtn = Checkbutton(FrameControlsPass,text="Numeros",variable=EncNumeros)
 NumerosBtn.pack()
 
 #Controles
