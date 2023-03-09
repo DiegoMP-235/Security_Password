@@ -1,7 +1,6 @@
 from tkinter import Tk,messagebox,Entry,Frame,Label,Checkbutton,Button,BooleanVar
 from Password import *
 
-
 ventana = Tk()
 ventana.title("Contraseña Segura")
 ventana.geometry("400x320")
@@ -22,6 +21,8 @@ def generaPassword():
     myPassword.crearPassword()
     nuevaPass = myPassword.getPassword()
     messagebox.showinfo("Esta es tu clave",nuevaPass)
+    SalidaPass.delete(0,'end')
+    SalidaPass.insert(0,nuevaPass)
 
 
 FrameControlsPass = Frame(ventana,bg="#00FF00")
@@ -62,4 +63,12 @@ BtnGenerar.pack()
 
 SalidaPass = Entry(FrameBtn)
 SalidaPass.pack()
+
+#About Fortaleza
+LabFortaleza = Label(FrameBtn,text="Fortaleza:")
+LabFortaleza.pack()
+
+#Seteamos la longitud por defecto en el Entry
+EntradaLen.insert(0,myPassword.getLongitud())
+
 ventana.mainloop()
