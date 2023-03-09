@@ -6,28 +6,28 @@ class Password:
         self.__CaracteresEsp = True 
         self.__Mayusculas = True
         self.__Numeros = True
-        self.__fortalea = "No estabelcida"
+        self.__CaracteresDefecto = "abcdefghijklmnopqrstuvwxyz"
+        self.__ConjuntoCaracEsp = "!@#$%^+=~-_ÑñÁáÍí[]{/}"
+        self.__ConjuntoMayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        self.__ConjuntoNumeros = "0123456789"
+        self.__fortaleza = "No estabelcida"
         
     def setLongitud(self,Longitud):
         self.__longitud = Longitud
         
     def setCaracteresEsp(self,CaracteresEsp):
-        if(self.__CaracteresEsp != True):
-            self.__CaracteresEsp = True  
-        else:
-            self.__CaracteresEsp = False
+        self.__CaracteresEsp = CaracteresEsp  
+
             
     def setMayusculas(self,Mayusculas):
-        if(self.__Mayusculas != True):
-            self.__Mayusculas = True  
-        else:
-            self.__Mayusculas = False     
+        self.__Mayusculas = Mayusculas  
+     
  
     def setNumeros(self,Numeros):
-        if(self.__Numeros != True):
-            self.__Numeros = True  
-        else:
-            self.__Mayusculas = False  
+        self.__Numeros = Numeros  
+  
+    def getLongitud(self):
+        return self.__longitud
                           
     def getCaracteresEsp(self):
         return self.__CaracteresEsp
@@ -39,20 +39,20 @@ class Password:
         return self.__Numeros
     
     
-    def getConjuntos(self):
-        Caracteres = ["abcdefghijklmnopqrstuvwxyz"] 
+    def __getConjuntos(self):
+        Caracteres = [self.__CaracteresDefecto] 
         if(self.getCaracteresEsp() == True):   
-            Caracteres.insert(len(Caracteres),"ÑñÁáÍí[]{/}")
+            Caracteres.insert(len(Caracteres),self.__ConjuntoCaracEsp)
             
         if(self.getMayusculas()  == True):
-            Caracteres.insert(len(Caracteres),"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+            Caracteres.insert(len(Caracteres),self.__ConjuntoMayusculas)
     
         if(self.getNumeros()  == True):
-            Caracteres.insert(len(Caracteres),"0123456789")
+            Caracteres.insert(len(Caracteres),self.__ConjuntoNumeros)
             
         return Caracteres    
     
-    def setPassword(self,Password):
+    def __setPassword(self,Password):
         self.__password = Password
         
     def getPassword(self):
@@ -60,12 +60,13 @@ class Password:
     
     def crearPassword(self):   
         Password = ""  
-        Caracteres = self.getConjuntos()     
+        Caracteres = self.__getConjuntos()     
               
         for i in range(0,self.__longitud):
             Conjunto = random.randint(0,len(Caracteres)-1)
             Password = Password + Caracteres[Conjunto][random.randint(0,len(Caracteres[Conjunto])-1)]
         
-        self.setPassword(Password)    
+        self.__setPassword(Password)    
             
-                                 
+    def __setFortaleza(self):
+        print("estableciendo Fortaleza..." )                         
