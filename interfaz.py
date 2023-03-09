@@ -1,31 +1,28 @@
-from tkinter import *
+from tkinter import Tk,messagebox,Entry,Frame,Label,Checkbutton,Button,BooleanVar
 from Password import *
 
 
-
-    
-    
-    
 ventana = Tk()
 ventana.title("Contraseña Segura")
 ventana.geometry("400x320")
 
 #instanciamos objeto de mi password
 myPassword = Password()
+#Definimos las variables para los checkbutton
+EncenCaracEsp = BooleanVar()
+EncenMayusculas = BooleanVar()
+EncNumeros = BooleanVar()
 
 #Definimos funciones
 def generaPassword():
-    Longitud = EntradaLen.getint()
-    CaracteresEspeciales = CaracteresEspecialesBtn.getboolean()
-    Mayusculas = MayusculasBtn.getboolean()
-    Numeros = NumerosBtn.getboolean()
-   
-    print(CaracteresEspeciales,Mayusculas,Numeros)
-    """ 
-    myPassword.setCaracteresEsp(CaracteresEspeciales)
-    myPassword.setMayusculas(Mayusculas)
-    myPassword.setNumeros(Numeros)
-    """
+    myPassword.setLongitud(int(EntradaLen.get()))
+    myPassword.setCaracteresEsp(EncenCaracEsp.get())
+    myPassword.setMayusculas(EncenMayusculas.get())
+    myPassword.setNumeros(EncNumeros.get())
+    myPassword.crearPassword()
+    nuevaPass = myPassword.getPassword()
+    messagebox.showinfo("Esta es tu clave",nuevaPass)
+
 
 FrameControlsPass = Frame(ventana,bg="#00FF00")
 FrameControlsPass.pack(expand=True,fill="both")
@@ -42,21 +39,21 @@ EntradaLen.pack()
 EtiquetaCE = Label(FrameControlsPass,text="Caracteres Especiales")
 EtiquetaCE.pack()
 
-CaracteresEspecialesBtn = Checkbutton(FrameControlsPass)
+CaracteresEspecialesBtn = Checkbutton(FrameControlsPass,variable=EncenCaracEsp)
 CaracteresEspecialesBtn.pack()
 
 #Mayusculas
 EtiquetaMA = Label(FrameControlsPass,text="Mayusculas")
 EtiquetaMA.pack()
 
-MayusculasBtn = Checkbutton(FrameControlsPass)
+MayusculasBtn = Checkbutton(FrameControlsPass,variable=EncenMayusculas)
 MayusculasBtn.pack()
 
 #Numeros
 EtiquetaNum = Label(FrameControlsPass,text="Numeros")
 EtiquetaNum.pack()
 
-NumerosBtn = Checkbutton(FrameControlsPass)
+NumerosBtn = Checkbutton(FrameControlsPass,variable=EncNumeros)
 NumerosBtn.pack()
 
 #Controles
@@ -65,8 +62,4 @@ BtnGenerar.pack()
 
 SalidaPass = Entry(FrameBtn)
 SalidaPass.pack()
-
-myPassword.generaPassword()
-print(myPassword.getPassword())
-
 ventana.mainloop()
