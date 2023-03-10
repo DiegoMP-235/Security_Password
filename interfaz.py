@@ -1,5 +1,6 @@
 from tkinter import Tk,messagebox,Entry,Frame,Label,Checkbutton,Button,BooleanVar
 from Password import *
+from Validaciones import *
 
 ventana = Tk()
 ventana.title("Contraseña Segura")
@@ -9,23 +10,37 @@ ventana.maxsize(400,320)
 
 #instanciamos objeto de mi password
 myPassword = Password()
+#instanciamos objeto de validaciones
+Validar = Validaciones()
 #Definimos las variables para los checkbutton
 EncenCaracEsp = BooleanVar()
 EncenMayusculas = BooleanVar()
 EncNumeros = BooleanVar()
 
+
 #Definimos funciones
-def generaPassword():
-    myPassword.setLongitud(int(EntradaLen.get()))
-    myPassword.setCaracteresEsp(EncenCaracEsp.get())
-    myPassword.setMayusculas(EncenMayusculas.get())
-    myPassword.setNumeros(EncNumeros.get())
-    myPassword.crearPassword()
+def muestraPassword():
     nuevaPass = myPassword.getPassword()
     messagebox.showinfo("Esta es tu clave",nuevaPass)
     SalidaPass.delete(0,'end')
     SalidaPass.insert(0,nuevaPass)
     LabFortaleza.config(text=myPassword.getFortaleza())
+    
+def generaPassword():
+
+    if(Validar.camposVacios(EntradaLen.get())):
+        messagebox.showinfo("Campleta campos","Por favor completa los campos")
+    else:
+        if(not Validar.esNumero(EntradaLen.get())): 
+            messagebox.showerror("Solo numeros","FATAL ERROR! ⚠️🚨\nUN ROOTKIT ENCONTRADO (ಥ﹏ಥ)")
+        else:      
+            myPassword.setLongitud(int(EntradaLen.get()))
+            myPassword.setCaracteresEsp(EncenCaracEsp.get())
+            myPassword.setMayusculas(EncenMayusculas.get())
+            myPassword.setNumeros(EncNumeros.get())
+            myPassword.crearPassword()
+            muestraPassword()
+
 
 FrameControlsPass = Frame(ventana,bg="#95a3a3")
 FrameControlsPass.pack(expand=True,fill="both")
@@ -61,8 +76,15 @@ SalidaPass = Entry(FrameBtn)
 SalidaPass.pack(pady=5)
 
 #About Fortaleza
-LabFortaleza = Label(FrameBtn,text="Fortaleza:")
-LabFortaleza.pack(pady=5)
+SeccionFrotaleza = Frame(FrameBtn)
+
+LblIndFort = Label(SeccionFrotaleza,text="Nivel de fortaleza:")
+LblIndFort.grid(row=0,column=0)
+
+LabFortaleza = Label(SeccionFrotaleza,text="[Fortaleza]")
+LabFortaleza.grid(row=0,column=1)
+
+SeccionFrotaleza.pack()
 
 #Seteamos la longitud por defecto en el Entry
 EntradaLen.insert(0,myPassword.getLongitud())
