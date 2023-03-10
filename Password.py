@@ -77,7 +77,7 @@ class Password:
          puntosFort = 1
          if(self.getLongitud() >= 8):
              puntosFort += 3
-             if(self.getLongitud() % 2 ==0 and self.getLongitud()>12):
+             if(self.getLongitud()>12):
                 puntosFort+=2 
          if(self.getCaracteresEsp()):
              puntosFort += 3 
