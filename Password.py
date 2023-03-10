@@ -57,6 +57,8 @@ class Password:
         
     def getPassword(self):
         return self.__password
+    def getFortaleza(self):
+        return self.__fortaleza
     
     def crearPassword(self):   
         Password = ""  
@@ -66,7 +68,36 @@ class Password:
             Conjunto = random.randint(0,len(Caracteres)-1)
             Password = Password + Caracteres[Conjunto][random.randint(0,len(Caracteres[Conjunto])-1)]
         
-        self.__setPassword(Password)    
+        self.__setPassword(Password) 
+        self.__setFortaleza(self.__determinaNivFort(self.__determinaPuntosFortaleza()))  
+        #determinarfort
+        
+    def __determinaPuntosFortaleza(self):
+         #print("determinando fortaleza...")
+         puntosFort = 1
+         if(self.getLongitud() >= 8):
+             puntosFort += 3
+             if(self.getLongitud() % 2 ==0 and self.getLongitud()>12):
+                puntosFort+=2 
+         if(self.getCaracteresEsp()):
+             puntosFort += 3 
+         if(self.getMayusculas()):
+             puntosFort += 1
+         if(self.getNumeros()): 
+             puntosFort += 1           
+         return puntosFort   
+     
+    def __determinaNivFort(self,puntosFort):
+        NivelFort = "Calculando..."
+        if(puntosFort >= 1 and puntosFort <= 4):
+            NivelFort = "Mala"
+        elif(puntosFort >= 5 and puntosFort <= 7):
+            NivelFort = "Regular"    
+        elif(puntosFort >= 8 and puntosFort <= 10): 
+            NivelFort = "Buena"
+        elif(puntosFort > 10):
+            NivelFort = "Muy buena"     
+        return NivelFort    
             
-    def __setFortaleza(self):
-        print("estableciendo Fortaleza..." )                         
+    def __setFortaleza(self,Fortaleza):
+        self.__fortaleza = Fortaleza                  
